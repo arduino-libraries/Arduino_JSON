@@ -25,6 +25,7 @@
 struct cJSON;
 
 #define typeof typeof_
+#define null nullptr
 
 class JSONVar : public Printable {
 public:
@@ -35,6 +36,7 @@ public:
   JSONVar(const char* s);
   JSONVar(const String& s);
   JSONVar(const JSONVar& v);
+  JSONVar(nullptr_t);
   virtual ~JSONVar();
 
   virtual size_t printTo(Print& p) const;
@@ -50,8 +52,10 @@ public:
   void operator=(double d);
   void operator=(const char* s);
   void operator=(const String& s);
+  void operator=(nullptr_t);
 
   bool operator==(const JSONVar& v) const;
+  bool operator==(nullptr_t) const;
 
   JSONVar operator[](const char* key);
   JSONVar operator[](int index);

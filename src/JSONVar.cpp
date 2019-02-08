@@ -63,6 +63,12 @@ JSONVar::JSONVar(const JSONVar& v)
   _parent = NULL;
 }
 
+JSONVar::JSONVar(nullptr_t)  :
+  JSONVar()
+{
+  *this = nullptr;
+}
+
 JSONVar::JSONVar() :
   JSONVar(NULL, NULL)
 {
@@ -146,9 +152,19 @@ void JSONVar::operator=(const String& s)
   *this = s.c_str();
 }
 
+void JSONVar::operator=(nullptr_t)
+{
+  replaceJson(cJSON_CreateNull());
+}
+
 bool JSONVar::operator==(const JSONVar& v) const
 {
   return cJSON_Compare(_json, v._json, 1);
+}
+
+bool JSONVar::operator==(nullptr_t) const
+{
+  return (_json == NULL || cJSON_IsNull(_json));
 }
 
 JSONVar JSONVar::operator[](const char* key)
