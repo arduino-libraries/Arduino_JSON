@@ -92,22 +92,22 @@ size_t JSONVar::printTo(Print& p) const
   return writen;
 }
 
-JSONVar::operator bool()
+JSONVar::operator bool() const
 {
   return cJSON_IsBool(_json) && cJSON_IsTrue(_json);
 }
 
-JSONVar::operator int()
+JSONVar::operator int() const
 {
   return cJSON_IsNumber(_json) ? _json->valueint : 0;
 }
 
-JSONVar::operator double()
+JSONVar::operator double() const
 {
   return cJSON_IsNumber(_json) ? _json->valuedouble : NAN;
 }
 
-JSONVar::operator const char*()
+JSONVar::operator const char*() const
 {
   if (cJSON_IsString(_json)) {
     return _json->valuestring;
@@ -146,7 +146,7 @@ void JSONVar::operator=(const String& s)
   *this = s.c_str();
 }
 
-bool JSONVar::operator==(const JSONVar& v)
+bool JSONVar::operator==(const JSONVar& v) const
 {
   return cJSON_Compare(_json, v._json, 1);
 }
@@ -185,7 +185,24 @@ JSONVar JSONVar::operator[](int index)
   return JSONVar(json, _json);
 }
 
-int JSONVar::length()
+JSONVar JSONVar::operator[](const JSONVar& key)
+{
+  if (cJSON_IsArray(_json) && cJSON_IsNumber(key._json)) {
+    int index = (int)key;
+
+    return (*this)[index];
+  }
+
+  if (cJSON_IsObject(_json) && cJSON_IsString(key._json)) {
+    const char* str = (const char*) key;
+
+    return (*this)[str];
+  }
+
+  return JSONVar(NULL, NULL);
+}
+
+int JSONVar::length() const
 {
   if (cJSON_IsString(_json)) {
     return strlen(_json->string);
@@ -196,7 +213,7 @@ int JSONVar::length()
   }
 }
 
-JSONVar JSONVar::keys()
+JSONVar JSONVar::keys() const
 {
   if (!cJSON_IsObject(_json)) {
     return JSONVar(NULL, NULL);

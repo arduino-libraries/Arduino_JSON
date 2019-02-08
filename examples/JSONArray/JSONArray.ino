@@ -43,6 +43,20 @@ void setup() {
   Serial.println(array.length());
 
   Serial.println(array);
+
+  for (int i = 0; i < array.length(); i++) {
+    var value = array[i];
+
+    Serial.print("typeof(array[");
+    Serial.print(i);
+    Serial.print("]) = ");
+    Serial.println(typeof(value));
+
+    Serial.print("array[");
+    Serial.print(i);
+    Serial.print("] = ");
+    Serial.println(value);
+  }
 }
 
 void loop() {

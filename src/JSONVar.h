@@ -39,10 +39,10 @@ public:
 
   virtual size_t printTo(Print& p) const;
 
-  operator bool();
-  operator int();
-  operator double();
-  operator const char*();
+  operator bool() const;
+  operator int() const;
+  operator double() const;
+  operator const char*() const;
 
   void operator=(const JSONVar& v);
   void operator=(bool b);
@@ -51,13 +51,14 @@ public:
   void operator=(const char* s);
   void operator=(const String& s);
 
-  bool operator==(const JSONVar& v);
+  bool operator==(const JSONVar& v) const;
 
   JSONVar operator[](const char* key);
   JSONVar operator[](int index);
+  JSONVar operator[](const JSONVar& key);
 
-  int length();
-  JSONVar keys();
+  int length() const;
+  JSONVar keys() const;
 
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);

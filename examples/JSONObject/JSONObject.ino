@@ -31,6 +31,22 @@ void setup() {
   Serial.println(obj.keys());
 
   Serial.println(obj);
+
+  var keys = obj.keys();
+
+  for (int i = 0; i < keys.length(); i++) {
+    var value = obj[keys[i]];
+
+    Serial.print("typeof(obj[");
+    Serial.print(keys[i]);
+    Serial.print("]) = ");
+    Serial.println(typeof(value));
+
+    Serial.print("obj[");
+    Serial.print(keys[i]);
+    Serial.print("] = ");
+    Serial.println(value);
+  }
 }
 
 void loop() {
