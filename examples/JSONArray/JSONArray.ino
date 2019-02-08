@@ -37,6 +37,8 @@ void setup() {
   array[4] = true;
   array[5] = 42;
 
+  array[10] = 11;
+
   Serial.print("array length = ");
   Serial.println(array.length());
 

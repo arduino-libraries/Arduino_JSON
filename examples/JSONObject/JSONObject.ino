@@ -10,6 +10,9 @@ void setup() {
 
   obj = JSON.parse(input);
 
+  Serial.print("obj keys = ");
+  Serial.println(obj.keys());
+
   Serial.println((bool) obj["result"]);
   Serial.println((int) obj["count"]);
   Serial.println((double) obj["count"]);
@@ -23,6 +26,9 @@ void setup() {
   obj["hello"] = "world";
   obj["true"] = true;
   obj["x"] = 42;
+
+  Serial.print("obj keys = ");
+  Serial.println(obj.keys());
 
   Serial.println(obj);
 }

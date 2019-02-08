@@ -50,6 +50,7 @@ public:
   JSONVar operator[](int index);
 
   int length();
+  JSONVar keys();
 
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);

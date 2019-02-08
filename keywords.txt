@@ -17,6 +17,7 @@ parse	KEYWORD2
 stringify	KEYWORD2
 
 length	KEYWORD2
+keys	KEYWORD2
 
 #######################################
 # Constants

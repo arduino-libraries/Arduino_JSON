@@ -119,6 +119,10 @@ void JSONVar::operator=(const String& s)
 
 JSONVar JSONVar::operator[](const char* key)
 {
+  if (!cJSON_IsObject(_json)) {
+    replaceJson(cJSON_CreateObject());
+  }
+
   cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
 
   if (json == NULL) {
@@ -130,12 +134,18 @@ JSONVar JSONVar::operator[](const char* key)
 
 JSONVar JSONVar::operator[](int index)
 {
+  if (!cJSON_IsArray(_json)) {
+    replaceJson(cJSON_CreateArray());
+  }
+
   cJSON* json = cJSON_GetArrayItem(_json, index);
 
   if (json == NULL) {
-    json = cJSON_CreateNull();
+    while (index >= cJSON_GetArraySize(_json)) {
+      json = cJSON_CreateNull();
 
-    cJSON_InsertItemInArray(_json, index, json);
+      cJSON_AddItemToArray(_json, json);
+    }
   }
 
   return JSONVar(json, _json);
@@ -150,6 +160,24 @@ int JSONVar::length()
   } else {
     return -1;
   }
+}
+
+JSONVar JSONVar::keys()
+{
+  if (!cJSON_IsObject(_json)) {
+    return JSONVar(NULL, NULL);
+  }
+
+  int length = cJSON_GetArraySize(_json);
+
+  const char* keys[length];
+  cJSON* child = _json->child;
+
+  for (int i = 0; i < length; i++, child = child->next) {
+    keys[i] = child->string;
+  }
+
+  return JSONVar(cJSON_CreateStringArray(keys, length), NULL);
 }
 
 JSONVar JSONVar::parse(const char* s)
