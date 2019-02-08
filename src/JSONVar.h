@@ -17,21 +17,52 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _JSON_H_
-#define _JSON_H_
+#ifndef _JSON_VAR_H_
+#define _JSON_VAR_H_
 
 #include <Arduino.h>
 
-#include "JSONVar.h"
+struct cJSON;
 
-class JSONClass {
+class JSONVar : public Printable {
 public:
-  JSONVar parse(const char* s);
-  JSONVar parse(const String& s);
+  JSONVar();
+  JSONVar(const JSONVar& v);
+  virtual ~JSONVar();
 
-  String stringify(const JSONVar& value);
+  virtual size_t printTo(Print& p) const;
+
+  operator bool();
+  operator int();
+  operator double();
+  operator const char*();
+
+  void operator=(const JSONVar& v);
+  void operator=(bool b);
+  void operator=(int i);
+  void operator=(double d);
+  void operator=(const char* s);
+  void operator=(const String& s);
+
+  JSONVar operator[](const char* key);
+  JSONVar operator[](int index);
+
+  static JSONVar parse(const char* s);
+  static JSONVar parse(const String& s);
+  static String stringify(const JSONVar& value);
+
+private:
+  JSONVar(struct cJSON* json, struct cJSON* parent);
+
+  void replaceJson(struct cJSON* json);
+
+private:
+  struct cJSON* _json;
+  struct cJSON* _parent;
 };
 
-extern JSONClass JSON;
+#ifndef var
+typedef JSONVar var;
+#endif
 
 #endif

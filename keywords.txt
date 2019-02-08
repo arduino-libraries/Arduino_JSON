@@ -5,6 +5,8 @@
 #######################################
 
 JSON	KEYWORD1
+JSONVar	KEYWORD1
+var	KEYWORD1
 
 #######################################
 # Methods and Functions 

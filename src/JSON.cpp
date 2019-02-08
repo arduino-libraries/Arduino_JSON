@@ -17,29 +17,21 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "cjson/cJSON.h"
-
 #include "JSON.h"
 
-JSON::JSON()
+JSONVar JSONClass::parse(const char* s)
 {
+  return JSONVar::parse(s);
 }
 
-JSON::~JSON()
+JSONVar JSONClass::parse(const String& s)
 {
+  return JSONVar::parse(s);
 }
 
-JSON JSON::parse(const char* s)
+String JSONClass::stringify(const JSONVar& value)
 {
-  return JSON();
+  return JSONVar::stringify(value);
 }
 
-JSON JSON::parse(const String& s)
-{
-  return parse(s.c_str());
-}
-
-String JSON::stringify()
-{
-  return "";
-}
+JSONClass JSON;
