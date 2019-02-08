@@ -28,6 +28,9 @@ const char* typeof(const JSONVar& value);
 
 class JSONClass {
 public:
+  JSONClass();
+  virtual ~JSONClass();
+
   JSONVar parse(const char* s);
   JSONVar parse(const String& s);
 

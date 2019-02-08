@@ -19,6 +19,59 @@
 
 #include "JSON.h"
 
+// #define JSON_HOOKS
+
+#ifdef JSON_HOOKS
+
+#include "cjson/cJSON.h"
+
+static int jsonAllocations = 0;
+
+void* JSON_malloc(size_t sz)
+{
+  void* ptr = malloc(sz);
+
+  jsonAllocations++;
+
+  Serial.print("JSON malloc: 0x");
+  Serial.print((unsigned int)ptr);
+  Serial.print(' ');
+  Serial.print(sz);
+  Serial.print(' ');
+  Serial.println(jsonAllocations);
+
+  return ptr;
+}
+
+void JSON_free(void* ptr)
+{
+  jsonAllocations--;
+
+  Serial.print("JSON free: 0x");
+  Serial.print((unsigned int)ptr);
+  Serial.print(' ');
+  Serial.println(jsonAllocations);
+
+  free(ptr);
+}
+#endif
+
+JSONClass::JSONClass()
+{
+#ifdef JSON_HOOKS
+  struct cJSON_Hooks hooks = {
+    JSON_malloc,
+    JSON_free
+  };
+
+  cJSON_InitHooks(&hooks);
+#endif
+}
+
+JSONClass::~JSONClass()
+{
+}
+
 const char* typeof(const JSONVar& value)
 {
   return JSONVar::typeof(value);
