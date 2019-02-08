@@ -27,6 +27,36 @@ JSONVar::JSONVar(struct cJSON* json, struct cJSON* parent) :
 {
 }
 
+JSONVar::JSONVar(bool b) :
+  JSONVar()
+{
+  *this = b;
+}
+
+JSONVar::JSONVar(int i) :
+  JSONVar()
+{
+  *this = i;
+}
+
+JSONVar::JSONVar(double d) :
+  JSONVar()
+{
+  *this = d;
+}
+
+JSONVar::JSONVar(const char* s)  :
+  JSONVar()
+{
+  *this = s;
+}
+
+JSONVar::JSONVar(const String& s)  :
+  JSONVar()
+{
+  *this = s;
+}
+
 JSONVar::JSONVar(const JSONVar& v)
 {
   _json = cJSON_Duplicate(v._json, true);
@@ -86,10 +116,9 @@ JSONVar::operator const char*()
   return NULL;
 }
 
-void JSONVar::operator= (const JSONVar& v)
+void JSONVar::operator=(const JSONVar& v)
 {
   replaceJson(cJSON_Duplicate(v._json, true));
-  _parent = NULL;
 }
 
 void JSONVar::operator=(bool b)
@@ -115,6 +144,11 @@ void JSONVar::operator=(const char* s)
 void JSONVar::operator=(const String& s)
 {
   *this = s.c_str();
+}
+
+bool JSONVar::operator==(const JSONVar& v)
+{
+  return cJSON_Compare(_json, v._json, 1);
 }
 
 JSONVar JSONVar::operator[](const char* key)

@@ -29,6 +29,11 @@ struct cJSON;
 class JSONVar : public Printable {
 public:
   JSONVar();
+  JSONVar(bool b);
+  JSONVar(int i);
+  JSONVar(double d);
+  JSONVar(const char* s);
+  JSONVar(const String& s);
   JSONVar(const JSONVar& v);
   virtual ~JSONVar();
 
@@ -45,6 +50,8 @@ public:
   void operator=(double d);
   void operator=(const char* s);
   void operator=(const String& s);
+
+  bool operator==(const JSONVar& v);
 
   JSONVar operator[](const char* key);
   JSONVar operator[](int index);
