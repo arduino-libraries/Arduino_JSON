@@ -24,6 +24,8 @@
 
 struct cJSON;
 
+#define typeof typeof_
+
 class JSONVar : public Printable {
 public:
   JSONVar();
@@ -47,9 +49,12 @@ public:
   JSONVar operator[](const char* key);
   JSONVar operator[](int index);
 
+  int length();
+
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);
   static String stringify(const JSONVar& value);
+  static const char* typeof_(const JSONVar& value);
 
 private:
   JSONVar(struct cJSON* json, struct cJSON* parent);

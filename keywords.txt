@@ -12,8 +12,11 @@ var	KEYWORD1
 # Methods and Functions 
 #######################################	
 
+typeof	KEYWORD2
 parse	KEYWORD2
 stringify	KEYWORD2
+
+length	KEYWORD2
 
 #######################################
 # Constants

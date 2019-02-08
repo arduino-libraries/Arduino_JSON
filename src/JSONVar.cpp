@@ -132,9 +132,24 @@ JSONVar JSONVar::operator[](int index)
 {
   cJSON* json = cJSON_GetArrayItem(_json, index);
 
-  // TODO: create NULL cJSON if null?
+  if (json == NULL) {
+    json = cJSON_CreateNull();
+
+    cJSON_InsertItemInArray(_json, index, json);
+  }
 
   return JSONVar(json, _json);
+}
+
+int JSONVar::length()
+{
+  if (cJSON_IsString(_json)) {
+    return strlen(_json->string);
+  } else if (cJSON_IsArray(_json)) {
+    return cJSON_GetArraySize(_json);
+  } else {
+    return -1;
+  }
 }
 
 JSONVar JSONVar::parse(const char* s)
@@ -162,6 +177,27 @@ String JSONVar::stringify(const JSONVar& value)
   cJSON_free(s);
 
   return str;
+}
+
+const char* JSONVar::typeof_(const JSONVar& value)
+{
+  struct cJSON* json = value._json;
+
+  if (cJSON_IsBool(json)) {
+    return "boolean";
+  } else if (json == NULL || cJSON_IsNull(json)) {
+    return "null"; // TODO: should this return "object" to be more JS like?
+  } else if (cJSON_IsNumber(json)) {
+    return "number";
+  } else if (cJSON_IsString(json)) {
+    return "string";
+  } else if (cJSON_IsArray(json)) {
+    return "array"; // TODO: should this return "object" to be more JS like?
+  } else if (cJSON_IsObject(json)) {
+    return "object";
+  } else {
+    return "unknown";
+  }
 }
 
 void JSONVar::replaceJson(struct cJSON* json)

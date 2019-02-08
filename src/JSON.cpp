@@ -19,6 +19,11 @@
 
 #include "JSON.h"
 
+const char* typeof(const JSONVar& value)
+{
+  return JSONVar::typeof(value);
+}
+
 JSONVar JSONClass::parse(const char* s)
 {
   return JSONVar::parse(s);
