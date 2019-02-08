@@ -1,5 +1,8 @@
 = JSON Library for Arduino =
 
+Process JSON in your Arduino sketches.
+
+This library is based on https://github.com/DaveGamble/cJSON[cJSON].
 
 == License ==
 
