@@ -1,3 +1,12 @@
+/*
+  JSON Kitchen Sink
+
+  This sketch demonstrates how to use various features
+  of the JSON library.
+
+  This example code is in the public domain.
+*/
+
 #include <JSON.h>
 
 void setup() {
@@ -5,98 +14,152 @@ void setup() {
   while (!Serial);
 
   // boolean
-  var b = true;
+  booleanDemo();
 
-  Serial.print("typeof(b) = ");
-  Serial.println(typeof(b));
+  intDemo();
 
-  Serial.print("b = ");
-  Serial.println(b);
+  doubleDemo();
 
-  b = false;
+  stringDemo();
 
-  // integer
-  Serial.print("b = ");
-  Serial.println(b);
+  arrayDemo();
 
-  var i = 42;
-
-  Serial.print("typeof(i) = ");
-  Serial.println(typeof(i));
-
-  Serial.print("i = ");
-  Serial.println(i);
-
-  i = 4242;
-
-  Serial.print("i = ");
-  Serial.println(i);
-
-  // double
-  var d = 42.42;
-
-  Serial.print("typeof(d) = ");
-  Serial.println(typeof(d));
-
-  Serial.print("d = ");
-  Serial.println(d);
-
-  d = 4242.4242;
-
-  Serial.print("d = ");
-  Serial.println(d);
-
-  // string
-  var s = "Hello World!";
-
-  Serial.print("typeof(s) = ");
-  Serial.println(typeof(s));
-
-  Serial.print("s = ");
-  Serial.println(s);
-
-  s = ":)";
-
-  Serial.print("s = ");
-  Serial.println(s);
-
-  // array
-  var array;
-
-  array[0] = 42;
-
-  Serial.print("typeof(array) = ");
-  Serial.println(typeof(array));
-
-  Serial.println((int)array[0] == 42);
-
-  Serial.print("array = ");
-  Serial.println(array);
-
-  array[1] = 42.42;
-
-  Serial.print("array = ");
-  Serial.println(array);
-
-  // object
-  var object;
-
-  object["foo"] = "bar";
-
-  Serial.print("typeof(object) = ");
-  Serial.println(typeof(object));
-
-  Serial.print("object keys = ");
-  Serial.println(object.keys());
-
-  Serial.print("object = ");
-  Serial.println(object);
-
-  object["blah"]["abc"] = 42;
-
-  Serial.print("object = ");
-  Serial.println(object);
+  objectDemo();
 }
 
 void loop() {
+}
+
+void booleanDemo() {
+  Serial.println("boolean");
+  Serial.println("=======");
+
+  var myBoolean = true;
+
+  Serial.print("typeof(myBoolean) = ");
+  Serial.println(typeof(myBoolean)); // prints: boolean
+
+  Serial.print("myBoolean = ");
+  Serial.println(myBoolean); // prints: true
+
+  myBoolean = false;
+
+  Serial.print("myBoolean = ");
+  Serial.println((boolean) myBoolean); // prints: 0
+
+  Serial.println();
+}
+
+void intDemo() {
+  Serial.println("int");
+  Serial.println("===");
+
+  var myInt = 42;
+
+  Serial.print("typeof(myInt) = ");
+  Serial.println(typeof(myInt)); // prints: number
+
+  Serial.print("myInt = ");
+  Serial.println(myInt); // prints: 42
+
+  myInt = 4242;
+
+  Serial.print("myInt = ");
+  Serial.println((int) myInt); // prints: 4242
+
+  Serial.println();
+}
+
+void doubleDemo() {
+  Serial.println("double");
+  Serial.println("======");
+
+  var myDouble = 42.5;
+
+  Serial.print("typeof(myDouble) = ");
+  Serial.println(typeof(myDouble)); // prints: number
+
+  Serial.print("myDouble = ");
+  Serial.println(myDouble); // prints: 42.5
+
+  myDouble = 4242.4242;
+
+  Serial.print("myDouble = ");
+  Serial.println((double) myDouble, 4); // prints: 4242.4242
+
+  Serial.println();
+}
+
+void stringDemo() {
+  Serial.println("string");
+  Serial.println("======");
+
+  var myString = "Hello World!";
+
+  Serial.print("typeof(myString) = ");
+  Serial.println(typeof(myString)); // prints: string
+
+  Serial.print("myString = ");
+  Serial.println(myString); // prints: Hello World!
+
+  myString = ":)";
+
+  Serial.print("myString = ");
+  Serial.println((const char*) myString); // prints: :)
+
+  Serial.println();
+}
+
+void arrayDemo() {
+  Serial.println("array");
+  Serial.println("=====");
+
+  var myArray;
+
+  myArray[0] = 42;
+
+  Serial.print("typeof(myArray) = ");
+  Serial.println(typeof(myArray)); // prints: array
+
+  Serial.print("myArray = ");
+  Serial.println(myArray); // prints: [42]
+
+  Serial.print("myArray[0] = ");
+  Serial.println((int)myArray[0]); // prints: 42
+
+  myArray[1] = 42.5;
+
+  Serial.print("myArray = ");
+  Serial.println(myArray); // prints: [42,42.5]
+
+  Serial.print("myArray[1] = ");
+  Serial.println((double)myArray[1]); // prints: 42.50
+
+  Serial.println();
+}
+
+void objectDemo() {
+  Serial.println("object");
+  Serial.println("======");
+
+  var myObject;
+
+  myObject["foo"] = "bar";
+
+  Serial.print("typeof(myObject) = ");
+  Serial.println(typeof(myObject)); // prints: object
+
+  Serial.print("myObject.keys() = ");
+  Serial.println(myObject.keys()); // prints: ["foo"]
+
+  Serial.print("myObject = ");
+  Serial.println(myObject); // prints: {"foo":"bar"}
+
+  myObject["blah"]["abc"] = 42;
+
+  Serial.print("myObject.keys() = ");
+  Serial.println(myObject.keys()); // prints: ["foo","blah"]
+
+  Serial.print("myObject = ");
+  Serial.println(myObject); // prints: {"foo":"bar","blah":{"abc":42}}
 }
