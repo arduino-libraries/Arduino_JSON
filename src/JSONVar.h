@@ -32,6 +32,7 @@ public:
   JSONVar();
   JSONVar(bool b);
   JSONVar(int i);
+  JSONVar(long l);
   JSONVar(double d);
   JSONVar(const char* s);
   JSONVar(const String& s);
@@ -46,6 +47,7 @@ public:
 
   operator bool() const;
   operator int() const;
+  operator long() const;
   operator double() const;
   operator const char*() const;
 
@@ -55,6 +57,7 @@ public:
 #endif
   void operator=(bool b);
   void operator=(int i);
+  void operator=(long l);
   void operator=(double d);
   void operator=(const char* s);
   void operator=(const String& s);

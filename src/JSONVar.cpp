@@ -39,6 +39,12 @@ JSONVar::JSONVar(int i) :
   *this = i;
 }
 
+JSONVar::JSONVar(long l) :
+  JSONVar()
+{
+  *this = l;
+}
+
 JSONVar::JSONVar(double d) :
   JSONVar()
 {
@@ -125,6 +131,11 @@ JSONVar::operator int() const
   return cJSON_IsNumber(_json) ? _json->valueint : 0;
 }
 
+JSONVar::operator long() const
+{
+  return cJSON_IsNumber(_json) ? _json->valueint : 0;
+}
+
 JSONVar::operator double() const
 {
   return cJSON_IsNumber(_json) ? _json->valuedouble : NAN;
@@ -182,6 +193,11 @@ void JSONVar::operator=(bool b)
 void JSONVar::operator=(int i)
 {
   replaceJson(cJSON_CreateNumber(i));
+}
+
+void JSONVar::operator=(long l)
+{
+  replaceJson(cJSON_CreateNumber(l));
 }
 
 void JSONVar::operator=(double d)
