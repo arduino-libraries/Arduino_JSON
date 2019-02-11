@@ -141,7 +141,18 @@ JSONVar::operator const char*() const
 
 void JSONVar::operator=(const JSONVar& v)
 {
-  replaceJson(cJSON_Duplicate(v._json, true));
+  if (&v == &undefined) {
+    if (cJSON_IsObject(_parent)) {
+      cJSON_DeleteItemFromObjectCaseSensitive(_parent, _json->string);
+
+      _json = NULL;
+      _parent = NULL;
+    } else {
+      replaceJson(cJSON_CreateNull());
+    }
+  } else {
+    replaceJson(cJSON_Duplicate(v._json, true));
+  }
 }
 
 #if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -195,12 +206,13 @@ void JSONVar::operator=(nullptr_t)
 
 bool JSONVar::operator==(const JSONVar& v) const
 {
-  return cJSON_Compare(_json, v._json, 1);
+  return cJSON_Compare(_json, v._json, 1) ||
+          (_json == NULL && v._json == NULL);
 }
 
 bool JSONVar::operator==(nullptr_t) const
 {
-  return (_json == NULL || cJSON_IsNull(_json));
+  return (cJSON_IsNull(_json));
 }
 
 JSONVar JSONVar::operator[](const char* key)
@@ -283,6 +295,17 @@ JSONVar JSONVar::keys() const
   return JSONVar(cJSON_CreateStringArray(keys, length), NULL);
 }
 
+bool JSONVar::hasOwnProperty(const char* key) const
+{
+  if (!cJSON_IsObject(_json)) {
+    return false;
+  }
+
+  cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
+
+  return (json != NULL);
+}
+
 JSONVar JSONVar::parse(const char* s)
 {
   cJSON* json = cJSON_Parse(s);
@@ -314,9 +337,11 @@ const char* JSONVar::typeof_(const JSONVar& value)
 {
   struct cJSON* json = value._json;
 
-  if (cJSON_IsBool(json)) {
+  if (json == NULL ||  cJSON_IsInvalid(json)) {
+    return "undefined";
+  } else if (cJSON_IsBool(json)) {
     return "boolean";
-  } else if (json == NULL || cJSON_IsNull(json)) {
+  } else if (cJSON_IsNull(json)) {
     return "null"; // TODO: should this return "object" to be more JS like?
   } else if (cJSON_IsNumber(json)) {
     return "number";
@@ -349,3 +374,5 @@ void JSONVar::replaceJson(struct cJSON* json)
     }
   }
 }
+
+JSONVar undefined;

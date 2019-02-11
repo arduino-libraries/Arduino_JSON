@@ -69,6 +69,7 @@ public:
 
   int length() const;
   JSONVar keys() const;
+  bool hasOwnProperty(const char* key) const;
 
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);
@@ -88,5 +89,7 @@ private:
 #ifndef var
 typedef JSONVar var;
 #endif
+
+extern JSONVar undefined;
 
 #endif

@@ -8,6 +8,7 @@ JSON	KEYWORD1
 JSONVar	KEYWORD1
 var	KEYWORD1
 null	KEYWORD1
+undefined	KEYWORD1
 
 #######################################
 # Methods and Functions 
@@ -19,6 +20,7 @@ stringify	KEYWORD2
 
 length	KEYWORD2
 keys	KEYWORD2
+hasOwnProperty	KEYWORD2
 
 #######################################
 # Constants
