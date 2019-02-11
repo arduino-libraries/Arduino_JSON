@@ -333,7 +333,7 @@ String JSONVar::stringify(const JSONVar& value)
   return str;
 }
 
-const char* JSONVar::typeof_(const JSONVar& value)
+String JSONVar::typeof_(const JSONVar& value)
 {
   struct cJSON* json = value._json;
 

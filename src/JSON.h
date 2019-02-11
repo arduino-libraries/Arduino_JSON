@@ -24,7 +24,7 @@
 
 #include "JSONVar.h"
 
-const char* typeof(const JSONVar& value);
+String typeof(const JSONVar& value);
 
 class JSONClass {
 public:

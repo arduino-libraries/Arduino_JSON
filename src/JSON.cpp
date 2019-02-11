@@ -72,7 +72,7 @@ JSONClass::~JSONClass()
 {
 }
 
-const char* typeof(const JSONVar& value)
+String typeof(const JSONVar& value)
 {
   return JSONVar::typeof(value);
 }

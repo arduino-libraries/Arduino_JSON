@@ -74,7 +74,7 @@ public:
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);
   static String stringify(const JSONVar& value);
-  static const char* typeof_(const JSONVar& value);
+  static String typeof_(const JSONVar& value);
 
 private:
   JSONVar(struct cJSON* json, struct cJSON* parent);
