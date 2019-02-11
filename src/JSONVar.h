@@ -36,6 +36,9 @@ public:
   JSONVar(const char* s);
   JSONVar(const String& s);
   JSONVar(const JSONVar& v);
+#if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
+  JSONVar(JSONVar&& v);
+#endif
   JSONVar(nullptr_t);
   virtual ~JSONVar();
 
@@ -47,6 +50,9 @@ public:
   operator const char*() const;
 
   void operator=(const JSONVar& v);
+#if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
+  JSONVar& operator=(JSONVar&& v);
+#endif
   void operator=(bool b);
   void operator=(int i);
   void operator=(double d);

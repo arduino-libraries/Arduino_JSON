@@ -63,6 +63,23 @@ JSONVar::JSONVar(const JSONVar& v)
   _parent = NULL;
 }
 
+#if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
+JSONVar::JSONVar(JSONVar&& v)
+{
+  cJSON* tmp;
+
+  // swap _json
+  tmp = _json;
+  _json = v._json;
+  v._json = tmp;
+
+  // swap parent
+  tmp = _parent;
+  _parent = v._parent;
+  v._parent = tmp;
+}
+#endif
+
 JSONVar::JSONVar(nullptr_t)  :
   JSONVar()
 {
@@ -126,6 +143,25 @@ void JSONVar::operator=(const JSONVar& v)
 {
   replaceJson(cJSON_Duplicate(v._json, true));
 }
+
+#if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
+JSONVar& JSONVar::operator=(JSONVar&& v)
+{
+  cJSON* tmp;
+
+  // swap _json
+  tmp = _json;
+  _json = v._json;
+  v._json = tmp;
+
+  // swap parent
+  tmp = _parent;
+  _parent = v._parent;
+  v._parent = tmp;
+
+  return *this;
+}
+#endif
 
 void JSONVar::operator=(bool b)
 {
