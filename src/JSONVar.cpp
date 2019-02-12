@@ -246,6 +246,11 @@ JSONVar JSONVar::operator[](const char* key)
   return JSONVar(json, _json);    
 }
 
+JSONVar JSONVar::operator[](const String& key)
+{
+  return (*this)[key.c_str()];
+}
+
 JSONVar JSONVar::operator[](int index)
 {
   if (!cJSON_IsArray(_json)) {
@@ -320,6 +325,11 @@ bool JSONVar::hasOwnProperty(const char* key) const
   cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
 
   return (json != NULL);
+}
+
+bool JSONVar::hasOwnProperty(const String& key) const
+{
+  return hasOwnProperty(key.c_str());
 }
 
 JSONVar JSONVar::parse(const char* s)

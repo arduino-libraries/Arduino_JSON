@@ -67,12 +67,14 @@ public:
   bool operator==(nullptr_t) const;
 
   JSONVar operator[](const char* key);
+  JSONVar operator[](const String& key);
   JSONVar operator[](int index);
   JSONVar operator[](const JSONVar& key);
 
   int length() const;
   JSONVar keys() const;
   bool hasOwnProperty(const char* key) const;
+  bool hasOwnProperty(const String& key) const;
 
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);
