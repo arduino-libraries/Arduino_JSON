@@ -91,10 +91,6 @@ private:
   struct cJSON* _parent;
 };
 
-#ifndef var
-typedef JSONVar var;
-#endif
-
 extern JSONVar undefined;
 
 #endif

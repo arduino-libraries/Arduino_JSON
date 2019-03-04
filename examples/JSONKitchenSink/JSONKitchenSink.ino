@@ -34,7 +34,7 @@ void booleanDemo() {
   Serial.println("boolean");
   Serial.println("=======");
 
-  var myBoolean = true;
+  JSONVar myBoolean = true;
 
   Serial.print("typeof(myBoolean) = ");
   Serial.println(typeof(myBoolean)); // prints: boolean
@@ -54,7 +54,7 @@ void intDemo() {
   Serial.println("int");
   Serial.println("===");
 
-  var myInt = 42;
+  JSONVar myInt = 42;
 
   Serial.print("typeof(myInt) = ");
   Serial.println(typeof(myInt)); // prints: number
@@ -74,7 +74,7 @@ void doubleDemo() {
   Serial.println("double");
   Serial.println("======");
 
-  var myDouble = 42.5;
+  JSONVar myDouble = 42.5;
 
   Serial.print("typeof(myDouble) = ");
   Serial.println(typeof(myDouble)); // prints: number
@@ -94,7 +94,7 @@ void stringDemo() {
   Serial.println("string");
   Serial.println("======");
 
-  var myString = "Hello World!";
+  JSONVar myString = "Hello World!";
 
   Serial.print("typeof(myString) = ");
   Serial.println(typeof(myString)); // prints: string
@@ -114,7 +114,7 @@ void arrayDemo() {
   Serial.println("array");
   Serial.println("=====");
 
-  var myArray;
+  JSONVar myArray;
 
   myArray[0] = 42;
 
@@ -142,7 +142,7 @@ void objectDemo() {
   Serial.println("object");
   Serial.println("======");
 
-  var myObject;
+  JSONVar myObject;
 
   myObject["foo"] = "bar";
 

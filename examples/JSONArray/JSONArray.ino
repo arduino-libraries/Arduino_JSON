@@ -27,7 +27,7 @@ void demoParse() {
   Serial.println("parse");
   Serial.println("=====");
 
-  var myArray = JSON.parse(input);
+  JSONVar myArray = JSON.parse(input);
 
   // typeof(jsonVar) can be used to get the type of the var
   if (typeof(myArray) == "undefined") {
@@ -65,7 +65,7 @@ void demoCreation() {
   Serial.println("creation");
   Serial.println("========");
 
-  var myArray;
+  JSONVar myArray;
   
   myArray[0] = false;
   myArray[1] = 4242.5;
@@ -85,7 +85,7 @@ void demoCreation() {
   Serial.println();
 
   for (int i = 0; i < myArray.length(); i++) {
-    var value = myArray[i];
+    JSONVar value = myArray[i];
 
     Serial.print("typeof(myArray[");
     Serial.print(i);

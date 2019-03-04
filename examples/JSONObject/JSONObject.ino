@@ -27,7 +27,7 @@ void demoParse() {
   Serial.println("parse");
   Serial.println("=====");
 
-  var myObject = JSON.parse(input);
+  JSONVar myObject = JSON.parse(input);
 
   // typeof(jsonVar) can be used to get the type of the var
   if (typeof(myObject) == "undefined") {
@@ -74,7 +74,7 @@ void demoCreation() {
   Serial.println("creation");
   Serial.println("========");
 
-  var myObject;
+  JSONVar myObject;
 
   myObject["hello"] = "world";
   myObject["true"] = true;
@@ -92,10 +92,10 @@ void demoCreation() {
   Serial.println();
 
   // myObject.keys() can be used to get an array of all the keys in the object
-  var keys = myObject.keys();
+  JSONVar keys = myObject.keys();
 
   for (int i = 0; i < keys.length(); i++) {
-    var value = myObject[keys[i]];
+    JSONVar value = myObject[keys[i]];
 
     Serial.print("typeof(myObject[");
     Serial.print(keys[i]);
