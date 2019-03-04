@@ -29,22 +29,22 @@ void demoParse() {
 
   JSONVar myArray = JSON.parse(input);
 
-  // typeof(jsonVar) can be used to get the type of the var
-  if (typeof(myArray) == "undefined") {
+  // JSON.typeof(jsonVar) can be used to get the type of the var
+  if (JSON.typeof(myArray) == "undefined") {
     Serial.println("Parsing input failed!");
     return;
   }
 
-  Serial.print("typeof(myArray) = ");
-  Serial.println(typeof(myArray)); // prints: array
+  Serial.print("JSON.typeof(myArray) = ");
+  Serial.println(JSON.typeof(myArray)); // prints: array
 
   // myArray.length() can be used to get the length of the array
   Serial.print("myArray.length() = ");
   Serial.println(myArray.length());
   Serial.println();
 
-  Serial.print("typeof(myArray[0]) = ");
-  Serial.println(typeof(myArray[0]));
+  Serial.print("JSON.typeof(myArray[0]) = ");
+  Serial.println(JSON.typeof(myArray[0]));
 
   Serial.print("myArray[0] = ");
   Serial.println(myArray[0]);
@@ -87,10 +87,10 @@ void demoCreation() {
   for (int i = 0; i < myArray.length(); i++) {
     JSONVar value = myArray[i];
 
-    Serial.print("typeof(myArray[");
+    Serial.print("JSON.typeof(myArray[");
     Serial.print(i);
     Serial.print("]) = ");
-    Serial.println(typeof(value));
+    Serial.println(JSON.typeof(value));
 
     Serial.print("myArray[");
     Serial.print(i);

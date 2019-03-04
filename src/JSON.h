@@ -24,8 +24,6 @@
 
 #include "JSONVar.h"
 
-String typeof(const JSONVar& value);
-
 class JSONClass {
 public:
   JSONClass();
@@ -35,6 +33,8 @@ public:
   JSONVar parse(const String& s);
 
   String stringify(const JSONVar& value);
+
+  String typeof(const JSONVar& value);
 };
 
 extern JSONClass JSON;

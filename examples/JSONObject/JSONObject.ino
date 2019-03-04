@@ -29,14 +29,14 @@ void demoParse() {
 
   JSONVar myObject = JSON.parse(input);
 
-  // typeof(jsonVar) can be used to get the type of the var
-  if (typeof(myObject) == "undefined") {
+  // JSON.typeof(jsonVar) can be used to get the type of the var
+  if (JSON.typeof(myObject) == "undefined") {
     Serial.println("Parsing input failed!");
     return;
   }
 
-  Serial.print("typeof(myObject) = ");
-  Serial.println(typeof(myObject)); // prints: object
+  Serial.print("JSON.typeof(myObject) = ");
+  Serial.println(JSON.typeof(myObject)); // prints: object
 
   // myObject.hasOwnProperty(key) checks if the object contains an entry for key
   if (myObject.hasOwnProperty("result")) {
@@ -97,10 +97,10 @@ void demoCreation() {
   for (int i = 0; i < keys.length(); i++) {
     JSONVar value = myObject[keys[i]];
 
-    Serial.print("typeof(myObject[");
+    Serial.print("JSON.typeof(myObject[");
     Serial.print(keys[i]);
     Serial.print("]) = ");
-    Serial.println(typeof(value));
+    Serial.println(JSON.typeof(value));
 
     Serial.print("myObject[");
     Serial.print(keys[i]);

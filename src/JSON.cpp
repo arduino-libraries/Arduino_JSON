@@ -72,11 +72,6 @@ JSONClass::~JSONClass()
 {
 }
 
-String typeof(const JSONVar& value)
-{
-  return JSONVar::typeof(value);
-}
-
 JSONVar JSONClass::parse(const char* s)
 {
   return JSONVar::parse(s);
@@ -90,6 +85,11 @@ JSONVar JSONClass::parse(const String& s)
 String JSONClass::stringify(const JSONVar& value)
 {
   return JSONVar::stringify(value);
+}
+
+String JSONClass::typeof(const JSONVar& value)
+{
+  return JSONVar::typeof(value);
 }
 
 JSONClass JSON;

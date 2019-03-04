@@ -36,8 +36,8 @@ void booleanDemo() {
 
   JSONVar myBoolean = true;
 
-  Serial.print("typeof(myBoolean) = ");
-  Serial.println(typeof(myBoolean)); // prints: boolean
+  Serial.print("JSON.typeof(myBoolean) = ");
+  Serial.println(JSON.typeof(myBoolean)); // prints: boolean
 
   Serial.print("myBoolean = ");
   Serial.println(myBoolean); // prints: true
@@ -56,8 +56,8 @@ void intDemo() {
 
   JSONVar myInt = 42;
 
-  Serial.print("typeof(myInt) = ");
-  Serial.println(typeof(myInt)); // prints: number
+  Serial.print("JSON.typeof(myInt) = ");
+  Serial.println(JSON.typeof(myInt)); // prints: number
 
   Serial.print("myInt = ");
   Serial.println(myInt); // prints: 42
@@ -76,8 +76,8 @@ void doubleDemo() {
 
   JSONVar myDouble = 42.5;
 
-  Serial.print("typeof(myDouble) = ");
-  Serial.println(typeof(myDouble)); // prints: number
+  Serial.print("JSON.typeof(myDouble) = ");
+  Serial.println(JSON.typeof(myDouble)); // prints: number
 
   Serial.print("myDouble = ");
   Serial.println(myDouble); // prints: 42.5
@@ -96,8 +96,8 @@ void stringDemo() {
 
   JSONVar myString = "Hello World!";
 
-  Serial.print("typeof(myString) = ");
-  Serial.println(typeof(myString)); // prints: string
+  Serial.print("JSON.typeof(myString) = ");
+  Serial.println(JSON.typeof(myString)); // prints: string
 
   Serial.print("myString = ");
   Serial.println(myString); // prints: Hello World!
@@ -118,8 +118,8 @@ void arrayDemo() {
 
   myArray[0] = 42;
 
-  Serial.print("typeof(myArray) = ");
-  Serial.println(typeof(myArray)); // prints: array
+  Serial.print("JSON.typeof(myArray) = ");
+  Serial.println(JSON.typeof(myArray)); // prints: array
 
   Serial.print("myArray = ");
   Serial.println(myArray); // prints: [42]
@@ -146,8 +146,8 @@ void objectDemo() {
 
   myObject["foo"] = "bar";
 
-  Serial.print("typeof(myObject) = ");
-  Serial.println(typeof(myObject)); // prints: object
+  Serial.print("JSON.typeof(myObject) = ");
+  Serial.println(JSON.typeof(myObject)); // prints: object
 
   Serial.print("myObject.keys() = ");
   Serial.println(myObject.keys()); // prints: ["foo"]
