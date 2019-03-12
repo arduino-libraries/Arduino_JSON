@@ -493,6 +493,38 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
     }
     else
     {
+#ifdef __AVR__
+        (void)test;
+
+        // zero the buffer
+        memset(number_buffer, 0x00, sizeof(number_buffer));
+
+        // add the integer part
+        ltoa((long)d, (char*)number_buffer, 10);
+        length = strlen((char*)number_buffer);
+
+        // calculate the number of decimal points (up to 9)
+        long decimal = (long)((d - (long)d) * 1000000000L);
+
+        if (decimal < 0) {
+          // negative decimal, make it positive
+          decimal *= -1;
+        }
+
+        // trim the trailing zeros
+        while (decimal && (decimal % 10) == 0) {
+          decimal /= 10;
+        }
+
+        if (decimal) {
+          // add the decimal part
+          number_buffer[length] = decimal_point;
+
+          ltoa(decimal, (char*)&number_buffer[length + 1], 10);
+
+          length = strlen((char*)number_buffer);
+        }
+#else
         /* Try 15 decimal places of precision to avoid nonsignificant nonzero digits */
         length = sprintf((char*)number_buffer, "%1.15g", d);
 
@@ -502,6 +534,7 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
             /* If not, print with 17 decimal places of precision */
             length = sprintf((char*)number_buffer, "%1.17g", d);
         }
+#endif
     }
 
     /* sprintf failed or buffer overrun occured */
