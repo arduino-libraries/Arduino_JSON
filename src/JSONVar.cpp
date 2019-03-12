@@ -45,6 +45,12 @@ JSONVar::JSONVar(long l) :
   *this = l;
 }
 
+JSONVar::JSONVar(unsigned long ul) :
+  JSONVar()
+{
+  *this = ul;
+}
+
 JSONVar::JSONVar(double d) :
   JSONVar()
 {
@@ -198,6 +204,11 @@ void JSONVar::operator=(int i)
 void JSONVar::operator=(long l)
 {
   replaceJson(cJSON_CreateNumber(l));
+}
+
+void JSONVar::operator=(unsigned long ul)
+{
+  replaceJson(cJSON_CreateNumber(ul));
 }
 
 void JSONVar::operator=(double d)
