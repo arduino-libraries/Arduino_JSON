@@ -17,26 +17,9 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _JSON_H_
-#define _JSON_H_
+#ifndef _ARDUINO_JSON_H_
+#define _ARDUINO_JSON_H_
 
-#include <Arduino.h>
-
-#include "JSONVar.h"
-
-class JSONClass {
-public:
-  JSONClass();
-  virtual ~JSONClass();
-
-  JSONVar parse(const char* s);
-  JSONVar parse(const String& s);
-
-  String stringify(const JSONVar& value);
-
-  String typeof(const JSONVar& value);
-};
-
-extern JSONClass JSON;
+#include "JSON.h"
 
 #endif

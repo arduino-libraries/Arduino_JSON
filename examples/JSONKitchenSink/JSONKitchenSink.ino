@@ -2,12 +2,12 @@
   JSON Kitchen Sink
 
   This sketch demonstrates how to use various features
-  of the JSON library.
+  of the Arduino JSON library.
 
   This example code is in the public domain.
 */
 
-#include <JSON.h>
+#include <Arduino_JSON.h>
 
 void setup() {
   Serial.begin(9600);

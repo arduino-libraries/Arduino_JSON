@@ -2,12 +2,12 @@
   JSON Array
 
   This sketch demonstrates how to use various features
-  of the JSON library, in particular for JSON arrays.
+  of the Arduino JSON library, in particular for JSON arrays.
 
   This example code is in the public domain.
 */
 
-#include <JSON.h>
+#include <Arduino_JSON.h>
 
 const char input[] = "[true, 42, \"apple\"]";
 

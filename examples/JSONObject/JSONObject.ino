@@ -2,12 +2,12 @@
   JSON Object
 
   This sketch demonstrates how to use various features
-  of the JSON library, in particular for JSON objects.
+  of the Arduino JSON library, in particular for JSON objects.
 
   This example code is in the public domain.
 */
 
-#include <JSON.h>
+#include <Arduino_JSON.h>
 
 const char input[] = "{\"result\":true,\"count\":42,\"foo\":\"bar\"}";
 

@@ -4,6 +4,7 @@
 # Class
 #######################################
 
+Arduino_JSON	KEYWORD1
 JSON	KEYWORD1
 JSONVar	KEYWORD1
 var	KEYWORD1
