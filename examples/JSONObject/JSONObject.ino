@@ -2,7 +2,7 @@
   JSON Object
 
   This sketch demonstrates how to use various features
-  of the Arduino JSON library, in particular for JSON objects.
+  of the Official Arduino JSON library, in particular for JSON objects.
 
   This example code is in the public domain.
 */

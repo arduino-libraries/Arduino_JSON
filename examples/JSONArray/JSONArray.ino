@@ -2,7 +2,7 @@
   JSON Array
 
   This sketch demonstrates how to use various features
-  of the Arduino JSON library, in particular for JSON arrays.
+  of the Official Arduino JSON library, in particular for JSON arrays.
 
   This example code is in the public domain.
 */
