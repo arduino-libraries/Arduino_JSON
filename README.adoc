@@ -1,4 +1,9 @@
-= JSON Library for Arduino =
+:repository-owner: arduino-libraries
+:repository-name: Arduino_JSON
+
+= {repository-name} Library for Arduino =
+
+image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/spell-check.yml/badge.svg["Spell Check status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/spell-check.yml"]
 
 Process JSON in your Arduino sketches.
 
