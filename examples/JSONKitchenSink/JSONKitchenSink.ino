@@ -2,7 +2,7 @@
   JSON Kitchen Sink
 
   This sketch demonstrates how to use various features
-  of the Official Arduino JSON library.
+  of the Official Arduino_JSON library.
 
   This example code is in the public domain.
 */

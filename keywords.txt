@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For JSON
+# Syntax Coloring Map For Arduino_JSON
 ####################################### 
 # Class
 #######################################
