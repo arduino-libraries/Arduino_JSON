@@ -2,7 +2,7 @@
   JSON Array
 
   This sketch demonstrates how to use various features
-  of the Official Arduino JSON library, in particular for JSON arrays.
+  of the Official Arduino_JSON library, in particular for JSON arrays.
 
   This example code is in the public domain.
 */
@@ -29,7 +29,7 @@ void demoParse() {
 
   JSONVar myArray = JSON.parse(input);
 
-  // JSON.typeof(jsonVar) can be used to get the type of the var
+  // JSON.typeof(jsonVar) can be used to get the type of the variable
   if (JSON.typeof(myArray) == "undefined") {
     Serial.println("Parsing input failed!");
     return;
@@ -77,7 +77,7 @@ void demoCreation() {
   Serial.print("myArray.length() = ");
   Serial.println(myArray.length());
 
-  // JSON.stringify(myVar) can be used to convert the json var to a String
+  // JSON.stringify(myVar) can be used to convert the JSONVar to a String
   String jsonString = JSON.stringify(myArray);
 
   Serial.print("JSON.stringify(myArray) = ");

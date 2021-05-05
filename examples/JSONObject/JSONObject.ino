@@ -2,7 +2,7 @@
   JSON Object
 
   This sketch demonstrates how to use various features
-  of the Official Arduino JSON library, in particular for JSON objects.
+  of the Official Arduino_JSON library, in particular for JSON objects.
 
   This example code is in the public domain.
 */
@@ -29,7 +29,7 @@ void demoParse() {
 
   JSONVar myObject = JSON.parse(input);
 
-  // JSON.typeof(jsonVar) can be used to get the type of the var
+  // JSON.typeof(jsonVar) can be used to get the type of the variable
   if (JSON.typeof(myObject) == "undefined") {
     Serial.println("Parsing input failed!");
     return;
@@ -63,7 +63,7 @@ void demoParse() {
     Serial.println((const char*) myObject["foo"]);
   }
 
-  // JSON vars can be printed using print or println
+  // JSONVars can be printed using print or println
   Serial.print("myObject = ");
   Serial.println(myObject);
 
@@ -83,7 +83,7 @@ void demoCreation() {
   Serial.print("myObject.keys() = ");
   Serial.println(myObject.keys());
 
-  // JSON.stringify(myVar) can be used to convert the json var to a String
+  // JSON.stringify(myVar) can be used to convert the JSONVar to a String
   String jsonString = JSON.stringify(myObject);
 
   Serial.print("JSON.stringify(myObject) = ");
