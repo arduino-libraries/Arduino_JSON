@@ -31,7 +31,12 @@ class JSONVar : public Printable {
 public:
   JSONVar();
   JSONVar(bool b);
+  JSONVar(char i);
+  JSONVar(unsigned char i);
+  JSONVar(short i);
+  JSONVar(unsigned short i);
   JSONVar(int i);
+  JSONVar(unsigned int i);
   JSONVar(long l);
   JSONVar(unsigned long ul);
   JSONVar(double d);
@@ -47,17 +52,29 @@ public:
   virtual size_t printTo(Print& p) const;
 
   operator bool() const;
+  operator char() const;
+  operator unsigned char() const;
+  operator short() const;
+  operator unsigned short() const;
   operator int() const;
-  operator long() const;
+  operator unsigned int() const;
+  operator long () const;
+  operator unsigned long () const;
   operator double() const;
-  operator const char*() const;
+  operator const char* () const;
+  operator const String () const;
 
   void operator=(const JSONVar& v);
 #if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
   JSONVar& operator=(JSONVar&& v);
 #endif
   void operator=(bool b);
+  void operator=(char i);
+  void operator=(unsigned char i);
+  void operator=(short i);
+  void operator=(unsigned short i);
   void operator=(int i);
+  void operator=(unsigned int i);
   void operator=(long l);
   void operator=(unsigned long ul);
   void operator=(double d);

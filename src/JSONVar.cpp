@@ -33,10 +33,40 @@ JSONVar::JSONVar(bool b) :
   *this = b;
 }
 
+JSONVar::JSONVar (char i) :
+    JSONVar ()
+{
+    *this = i;
+}
+
+JSONVar::JSONVar (unsigned char i) :
+    JSONVar ()
+{
+    *this = i;
+}
+
+JSONVar::JSONVar (short i) :
+    JSONVar ()
+{
+    *this = i;
+}
+
+JSONVar::JSONVar (unsigned short i) :
+    JSONVar ()
+{
+    *this = i;
+}
+
 JSONVar::JSONVar(int i) :
   JSONVar()
 {
   *this = i;
+}
+
+JSONVar::JSONVar (unsigned int i) :
+    JSONVar ()
+{
+    *this = i;
 }
 
 JSONVar::JSONVar(long l) :
@@ -132,14 +162,44 @@ JSONVar::operator bool() const
   return cJSON_IsBool(_json) && cJSON_IsTrue(_json);
 }
 
-JSONVar::operator int() const
+JSONVar::operator char () const
 {
-  return cJSON_IsNumber(_json) ? _json->valueint : 0;
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
 }
 
-JSONVar::operator long() const
+JSONVar::operator unsigned char () const
 {
-  return cJSON_IsNumber(_json) ? _json->valueint : 0;
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
+}
+
+JSONVar::operator short () const
+{
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
+}
+
+JSONVar::operator unsigned short () const
+{
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
+}
+
+JSONVar::operator int () const
+{
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
+}
+
+JSONVar::operator unsigned int () const
+{
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
+}
+
+JSONVar::operator long () const
+{
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
+}
+
+JSONVar::operator unsigned long () const
+{
+    return cJSON_IsNumber (_json) ? _json->valueint : 0;
 }
 
 JSONVar::operator double() const
@@ -154,6 +214,15 @@ JSONVar::operator const char*() const
   }
 
   return NULL;
+}
+
+JSONVar::operator const String () const
+{
+    if (cJSON_IsString (_json)) {
+        return String(_json->valuestring);
+    }
+
+    return String();
 }
 
 void JSONVar::operator=(const JSONVar& v)
@@ -196,9 +265,34 @@ void JSONVar::operator=(bool b)
   replaceJson(b ? cJSON_CreateTrue() : cJSON_CreateFalse());
 }
 
+void JSONVar::operator=(char i)
+{
+    replaceJson (cJSON_CreateNumber (i));
+}
+
+void JSONVar::operator=(unsigned char i)
+{
+    replaceJson (cJSON_CreateNumber (i));
+}
+
+void JSONVar::operator=(short i)
+{
+    replaceJson (cJSON_CreateNumber (i));
+}
+
+void JSONVar::operator=(unsigned short i)
+{
+    replaceJson (cJSON_CreateNumber (i));
+}
+
 void JSONVar::operator=(int i)
 {
-  replaceJson(cJSON_CreateNumber(i));
+    replaceJson (cJSON_CreateNumber (i));
+}
+
+void JSONVar::operator=(unsigned int i)
+{
+    replaceJson (cJSON_CreateNumber (i));
 }
 
 void JSONVar::operator=(long l)
