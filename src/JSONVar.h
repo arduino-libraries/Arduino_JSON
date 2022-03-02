@@ -77,6 +77,12 @@ public:
   JSONVar keys() const;
   bool hasOwnProperty(const char* key) const;
   bool hasOwnProperty(const String& key) const;
+  
+  bool haPropertyEqualTo(const String& key, String& value) const;
+  bool hasPropertyEqualTo(const char* key, const char* value) const;  
+
+  JSONVar getPropertyWithValue(const String& key, String& value, String child = "") const;
+  JSONVar getPropertyWithValue(const char* key, const char* value, const char* child = '') const;
 
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);

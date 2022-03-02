@@ -412,4 +412,58 @@ void JSONVar::replaceJson(struct cJSON* json)
   }
 }
 
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqualTo(const String& key, String& value) const{
+  return hasPropertyEqualTo(key.c_str(), value.c_str());
+}
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqualTo(const char* key, const char* value) const {
+  if(!hasProperty(sourceProperty)){
+    return false;
+  }
+
+  if(strcmp(targetValue, source[sourceProperty]) == 0){
+    return true;
+  }
+  
+  return false;
+}
+
+//---------------------------------------------------------------------
+
+JSONVar JSONVar::getPropertyWithValue(const String& key, String& value, String child = "") const {
+  return getPropertyWithValue(key..c_str(), value.c_str(), child.c_str());
+}
+
+//---------------------------------------------------------------------
+
+JSONVar JSONVar::getPropertyWithValue(const char* key, const char* value, const char* child = '') const {
+  if(this.hasOwnPropertyEqualTo(key, value)){
+    if(source.hasOwnProperty(childName)){
+      return source[childName];
+    }
+    else {
+      return source;
+    }
+  }
+
+  if(JSON.typeof_(source) == "array"){
+    for (int i = 0; i < source.length(); ++i) {
+      if(_hasMatch(source[i], sourceProperty, targetValue)){
+        if(source[i].hasOwnProperty(childName)){
+          return source[i][childName];
+        }
+        else {
+          return source[i];
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
 JSONVar undefined;
