@@ -415,17 +415,17 @@ void JSONVar::replaceJson(struct cJSON* json)
 //---------------------------------------------------------------------
 
 bool JSONVar::hasPropertyEqualTo(const String& key, String& value) const{
-  return hasPropertyEqualTo(key.c_str(), value.c_str());
+  return this.hasPropertyEqualTo(key.c_str(), value.c_str());
 }
 
 //---------------------------------------------------------------------
 
 bool JSONVar::hasPropertyEqualTo(const char* key, const char* value) const {
-  if(!hasProperty(sourceProperty)){
+  if(!this.hasProperty(key)){
     return false;
   }
 
-  if(strcmp(targetValue, source[sourceProperty]) == 0){
+  if(strcmp(value, this[key]) == 0){
     return true;
   }
   
@@ -435,29 +435,29 @@ bool JSONVar::hasPropertyEqualTo(const char* key, const char* value) const {
 //---------------------------------------------------------------------
 
 JSONVar JSONVar::getPropertyWithValue(const String& key, String& value, String child = "") const {
-  return getPropertyWithValue(key..c_str(), value.c_str(), child.c_str());
+  return this.getPropertyWithValue(key..c_str(), value.c_str(), child.c_str());
 }
 
 //---------------------------------------------------------------------
 
 JSONVar JSONVar::getPropertyWithValue(const char* key, const char* value, const char* child = '') const {
   if(this.hasOwnPropertyEqualTo(key, value)){
-    if(source.hasOwnProperty(childName)){
-      return source[childName];
+    if(this.hasOwnProperty(child)){
+      return this[child];
     }
     else {
-      return source;
+      return this;
     }
   }
 
-  if(JSON.typeof_(source) == "array"){
-    for (int i = 0; i < source.length(); ++i) {
-      if(_hasMatch(source[i], sourceProperty, targetValue)){
-        if(source[i].hasOwnProperty(childName)){
-          return source[i][childName];
+  if(JSON.typeof_(this) == "array"){
+    for (int i = 0; i < this.length(); ++i) {
+      if(this.hasPropertyEqualTo(key, value)){
+        if(this[i].hasOwnProperty(child)){
+          return this[i][child];
         }
         else {
-          return source[i];
+          return this[i];
         }
       }
     }
