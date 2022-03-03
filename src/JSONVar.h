@@ -71,18 +71,22 @@ public:
   JSONVar operator[](const char* key);
   JSONVar operator[](const String& key);
   JSONVar operator[](int index);
-  JSONVar operator[](const JSONVar& key);
+  JSONVar operator[](const JSONVar& key);  
 
   int length() const;
   JSONVar keys() const;
   bool hasOwnProperty(const char* key) const;
   bool hasOwnProperty(const String& key) const;
   
-  bool haPropertyEqualTo(const String& key, String& value) const;
-  bool hasPropertyEqualTo(const char* key, const char* value) const;  
-
-  JSONVar getPropertyWithValue(const String& key, String& value, String child = "") const;
-  JSONVar getPropertyWithValue(const char* key, const char* value, const char* child = '') const;
+  bool hasPropertyEqual(const char* key,  const char* value) const;  
+  bool hasPropertyEqual(const char* key,  const JSONVar& value) const;  
+  bool hasPropertyEqual(const String& key,  const String& value) const;  
+  bool hasPropertyEqual(const String& key,  const JSONVar& value) const;  
+  
+  JSONVar filter(const char* key, const char* value) const;
+  JSONVar filter(const char* key, const JSONVar& value) const;
+  JSONVar filter(const String& key, const String& value) const;
+  JSONVar filter(const String& key, const JSONVar& value) const;
 
   static JSONVar parse(const char* s);
   static JSONVar parse(const String& s);

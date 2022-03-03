@@ -334,7 +334,6 @@ bool JSONVar::hasOwnProperty(const char* key) const
   }
 
   cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
-
   return (json != NULL);
 }
 
@@ -414,56 +413,77 @@ void JSONVar::replaceJson(struct cJSON* json)
 
 //---------------------------------------------------------------------
 
-bool JSONVar::hasPropertyEqualTo(const String& key, String& value) const{
-  return this.hasPropertyEqualTo(key.c_str(), value.c_str());
-}
+bool JSONVar::hasPropertyEqual(const char* key,  const char* value) const {
+  // Serial.printf("JSONVar::hasPropertyEqual - %s == %s\n", key, value);
 
-//---------------------------------------------------------------------
-
-bool JSONVar::hasPropertyEqualTo(const char* key, const char* value) const {
-  if(!this.hasProperty(key)){
+  if (!cJSON_IsObject(_json)) {
     return false;
   }
 
-  if(strcmp(value, this[key]) == 0){
-    return true;
+  cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
+  // Serial.printf("JSONVar::hasPropertyEqual - Found %s\n", json->valuestring);
+  return json != NULL && strcmp(value, json->valuestring) == 0;
+} 
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const char* key,  const JSONVar& value) const {
+  return this->hasPropertyEqual(key, (const char*)value);
+} 
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const String& key,  const String& value) const {
+  return this->hasPropertyEqual(key.c_str(), value.c_str());
+}   
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const String& key,  const JSONVar& value) const  {
+  return this->hasPropertyEqual(key.c_str(), (const char*)value);
+} 
+
+//---------------------------------------------------------------------
+
+JSONVar JSONVar::filter(const char* key, const char* value) const {
+  cJSON* item;
+  cJSON* test;
+  cJSON* json = cJSON_CreateArray();
+
+  if(JSONVar::typeof_((*this)) != "array"){
+    test = cJSON_GetObjectItemCaseSensitive(_json, key);
+    if(test != NULL && strcmp(value, test->valuestring) == 0){
+      cJSON_AddItemToArray(json, _json);
+    }
+    return JSONVar(json, _json);
   }
   
-  return false;
-}
-
-//---------------------------------------------------------------------
-
-JSONVar JSONVar::getPropertyWithValue(const String& key, String& value, String child = "") const {
-  return this.getPropertyWithValue(key..c_str(), value.c_str(), child.c_str());
-}
-
-//---------------------------------------------------------------------
-
-JSONVar JSONVar::getPropertyWithValue(const char* key, const char* value, const char* child = '') const {
-  if(this.hasOwnPropertyEqualTo(key, value)){
-    if(this.hasOwnProperty(child)){
-      return this[child];
+  for (int i = 0; i < cJSON_GetArraySize(_json); ++i) {
+    item = cJSON_GetArrayItem(_json, i);
+    if (item == NULL) {
+      continue;
     }
-    else {
-      return this;
+    
+    test = cJSON_GetObjectItemCaseSensitive(item, key);
+    
+    if(test != NULL && strcmp(value, test->valuestring) == 0){
+      cJSON_AddItemToArray(json, item);
     }
   }
 
-  if(JSON.typeof_(this) == "array"){
-    for (int i = 0; i < this.length(); ++i) {
-      if(this.hasPropertyEqualTo(key, value)){
-        if(this[i].hasOwnProperty(child)){
-          return this[i][child];
-        }
-        else {
-          return this[i];
-        }
-      }
-    }
-  }
+  return JSONVar(json, _json); 
+}
 
-  return null;
+JSONVar JSONVar::filter(const char* key, const JSONVar& value) const {
+  return this->filter(key, (const char*)value);
+}
+
+JSONVar JSONVar::filter(const String& key, const String& value) const {
+  return this->filter(key.c_str(), value.c_str());
+}
+
+JSONVar JSONVar::filter(const String& key, const JSONVar& value) const {
+  return this->filter(key.c_str(), (const char*)value);
 }
 
 JSONVar undefined;
