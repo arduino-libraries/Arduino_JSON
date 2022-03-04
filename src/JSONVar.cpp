@@ -445,30 +445,95 @@ bool JSONVar::hasPropertyEqual(const String& key,  const JSONVar& value) const  
 
 //---------------------------------------------------------------------
 
+// JSONVar JSONVar::filter(const char* key, const char* value) const {
+//   JSONVar item;
+//   cJSON* test;
+//   cJSON* json = cJSON_CreateArray();
+
+//   Serial.printf("JSONVar::filter - %s == %s\n", key, value);
+  
+//   // if(!cJSON_IsArray(_json)){
+//   //   // target = cJSON_CreateArray();
+//   //   // cJSON_AddItemToArray(target, _json);
+//   //   return (*this);
+//   // }
+  
+//   // Serial.printf("JSON SIZE %d", cJSON_GetArraySize(_json));
+
+//   Serial.printf("This an array %d\n", (*this).length());
+
+//   for (int i = 0; i < (*this).length(); i++) {
+//     Serial.println("GettingItem");
+//     item = this[(int)i];
+//     Serial.println(item);
+//     Serial.println(item[(const char*)key]);
+//     Serial.println("GotItem");
+    
+//     // Serial.println("Loop " + String(i));
+//     // Serial.println(this->operator[](i));//cJSON_GetArrayItem(_json, i);
+    
+//     // if (item == NULL) {
+//     //   Serial.println("Loop Null");
+//     //   continue;
+//     // }
+    
+//     if(item.hasPropertyEqual(key, value)){
+//       Serial.println("Got Match");
+//       return item;
+//     }
+//     else {
+//       Serial.println("NO Match");
+//     }
+//   }
+
+  // if(cJSON_GetArraySize(json) == 0){
+  //   Serial.println("Returning Null");
+  //   return NULL; 
+  // }
+  // else if(cJSON_GetArraySize(json) == 1){
+  //   Serial.println("Returning Single");
+  //   return JSONVar(cJSON_GetArrayItem(json, 0), (*this)._json); 
+  // }
+
+  // // Serial.println("Returning Array");
+//   return JSONVar(); 
+// }
+
 JSONVar JSONVar::filter(const char* key, const char* value) const {
   cJSON* item;
   cJSON* test;
   cJSON* json = cJSON_CreateArray();
 
-  if(JSONVar::typeof_((*this)) != "array"){
-    test = cJSON_GetObjectItemCaseSensitive(_json, key);
+  Serial.printf("JSONVar::filter - %s == %s\n", key, value);
+  
+  if(!cJSON_IsArray(_json)){
+    test = cJSON_GetObjectItem(_json, key);
+    
     if(test != NULL && strcmp(value, test->valuestring) == 0){
-      cJSON_AddItemToArray(json, _json);
+      return JSONVar(cJSON_Duplicate(item,true), _json);
     }
-    return JSONVar(json, _json);
   }
   
-  for (int i = 0; i < cJSON_GetArraySize(_json); ++i) {
+  for (int i = 0; i < cJSON_GetArraySize(_json); i++) {
     item = cJSON_GetArrayItem(_json, i);
+  
     if (item == NULL) {
       continue;
     }
     
-    test = cJSON_GetObjectItemCaseSensitive(item, key);
+    test = cJSON_GetObjectItem(item, key);
     
     if(test != NULL && strcmp(value, test->valuestring) == 0){
-      cJSON_AddItemToArray(json, item);
+      cJSON_AddItemToArray(json, cJSON_Duplicate(item,true));
     }
+  }
+
+  if(cJSON_GetArraySize(json) == 0){
+    return JSONVar(NULL, NULL);
+  }
+  
+  if(cJSON_GetArraySize(json) == 1){
+    return JSONVar(cJSON_GetArrayItem(json, 0), _json); 
   }
 
   return JSONVar(json, _json); 
