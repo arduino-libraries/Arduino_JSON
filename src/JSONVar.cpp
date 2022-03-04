@@ -414,14 +414,11 @@ void JSONVar::replaceJson(struct cJSON* json)
 //---------------------------------------------------------------------
 
 bool JSONVar::hasPropertyEqual(const char* key,  const char* value) const {
-  // Serial.printf("JSONVar::hasPropertyEqual - %s == %s\n", key, value);
-
   if (!cJSON_IsObject(_json)) {
     return false;
   }
 
   cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
-  // Serial.printf("JSONVar::hasPropertyEqual - Found %s\n", json->valuestring);
   return json != NULL && strcmp(value, json->valuestring) == 0;
 } 
 
@@ -445,72 +442,16 @@ bool JSONVar::hasPropertyEqual(const String& key,  const JSONVar& value) const  
 
 //---------------------------------------------------------------------
 
-// JSONVar JSONVar::filter(const char* key, const char* value) const {
-//   JSONVar item;
-//   cJSON* test;
-//   cJSON* json = cJSON_CreateArray();
-
-//   Serial.printf("JSONVar::filter - %s == %s\n", key, value);
-  
-//   // if(!cJSON_IsArray(_json)){
-//   //   // target = cJSON_CreateArray();
-//   //   // cJSON_AddItemToArray(target, _json);
-//   //   return (*this);
-//   // }
-  
-//   // Serial.printf("JSON SIZE %d", cJSON_GetArraySize(_json));
-
-//   Serial.printf("This an array %d\n", (*this).length());
-
-//   for (int i = 0; i < (*this).length(); i++) {
-//     Serial.println("GettingItem");
-//     item = this[(int)i];
-//     Serial.println(item);
-//     Serial.println(item[(const char*)key]);
-//     Serial.println("GotItem");
-    
-//     // Serial.println("Loop " + String(i));
-//     // Serial.println(this->operator[](i));//cJSON_GetArrayItem(_json, i);
-    
-//     // if (item == NULL) {
-//     //   Serial.println("Loop Null");
-//     //   continue;
-//     // }
-    
-//     if(item.hasPropertyEqual(key, value)){
-//       Serial.println("Got Match");
-//       return item;
-//     }
-//     else {
-//       Serial.println("NO Match");
-//     }
-//   }
-
-  // if(cJSON_GetArraySize(json) == 0){
-  //   Serial.println("Returning Null");
-  //   return NULL; 
-  // }
-  // else if(cJSON_GetArraySize(json) == 1){
-  //   Serial.println("Returning Single");
-  //   return JSONVar(cJSON_GetArrayItem(json, 0), (*this)._json); 
-  // }
-
-  // // Serial.println("Returning Array");
-//   return JSONVar(); 
-// }
-
 JSONVar JSONVar::filter(const char* key, const char* value) const {
   cJSON* item;
   cJSON* test;
   cJSON* json = cJSON_CreateArray();
 
-  Serial.printf("JSONVar::filter - %s == %s\n", key, value);
-  
-  if(!cJSON_IsArray(_json)){
+  if(cJSON_IsObject(_json)){
     test = cJSON_GetObjectItem(_json, key);
     
     if(test != NULL && strcmp(value, test->valuestring) == 0){
-      return JSONVar(cJSON_Duplicate(item,true), _json);
+      return (*this);
     }
   }
   
