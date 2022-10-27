@@ -8,6 +8,7 @@
 */
 
 #include <Arduino_JSON.h>
+#include <assert.h>
 
 const char input[] = "{\"result\":true,\"count\":42,\"foo\":\"bar\"}";
 
