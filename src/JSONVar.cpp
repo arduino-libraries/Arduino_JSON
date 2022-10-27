@@ -142,6 +142,11 @@ JSONVar::operator long() const
   return cJSON_IsNumber(_json) ? _json->valueint : 0;
 }
 
+JSONVar::operator unsigned long() const
+{
+  return cJSON_IsNumber(_json) ? _json->valueint : 0;
+}
+
 JSONVar::operator double() const
 {
   return cJSON_IsNumber(_json) ? _json->valuedouble : NAN;
