@@ -8,6 +8,7 @@
 */
 
 #include <Arduino_JSON.h>
+#include <assert.h>
 
 const char input[] = "{\"result\":true,\"count\":42,\"foo\":\"bar\"}";
 
@@ -78,7 +79,19 @@ void demoCreation() {
 
   myObject["hello"] = "world";
   myObject["true"] = true;
-  myObject["x"] = 42;
+
+  myObject["x1"] = (int) 42;
+  myObject["x2"] = (long) 42;
+  myObject["x3"] = (unsigned long) 42;
+
+  int x1 = myObject["x1"];
+  assert(x1 == 42);
+  
+  long x2 = myObject["x2"];
+  assert(x2 == 42);
+
+  unsigned long x3 = myObject["x3"];
+  assert(x3 == 42);
 
   Serial.print("myObject.keys() = ");
   Serial.println(myObject.keys());

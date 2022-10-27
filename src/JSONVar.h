@@ -49,6 +49,7 @@ public:
   operator bool() const;
   operator int() const;
   operator long() const;
+  operator unsigned long() const;
   operator double() const;
   operator const char*() const;
 
