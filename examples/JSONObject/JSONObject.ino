@@ -84,8 +84,13 @@ void demoCreation() {
   myObject["x3"] = (unsigned long) 42;
 
   int x1 = myObject["x1"];
+  assert(x1 == 42);
+  
   long x2 = myObject["x2"];
+  assert(x2 == 42);
+
   unsigned long x3 = myObject["x3"];
+  assert(x3 == 42);
 
   Serial.print("myObject.keys() = ");
   Serial.println(myObject.keys());
