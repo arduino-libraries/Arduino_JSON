@@ -428,7 +428,6 @@ bool JSONVar::hasOwnProperty(const char* key) const
   }
 
   cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
-
   return (json != NULL);
 }
 
@@ -504,6 +503,87 @@ void JSONVar::replaceJson(struct cJSON* json)
       cJSON_Delete(old);
     }
   }
+}
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const char* key,  const char* value) const {
+  if (!cJSON_IsObject(_json)) {
+    return false;
+  }
+
+  cJSON* json = cJSON_GetObjectItemCaseSensitive(_json, key);
+  return json != NULL && strcmp(value, json->valuestring) == 0;
+} 
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const char* key,  const JSONVar& value) const {
+  return this->hasPropertyEqual(key, (const char*)value);
+} 
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const String& key,  const String& value) const {
+  return this->hasPropertyEqual(key.c_str(), value.c_str());
+}   
+
+//---------------------------------------------------------------------
+
+bool JSONVar::hasPropertyEqual(const String& key,  const JSONVar& value) const  {
+  return this->hasPropertyEqual(key.c_str(), (const char*)value);
+} 
+
+//---------------------------------------------------------------------
+
+JSONVar JSONVar::filter(const char* key, const char* value) const {
+  cJSON* item;
+  cJSON* test;
+  cJSON* json = cJSON_CreateArray();
+
+  if(cJSON_IsObject(_json)){
+    test = cJSON_GetObjectItem(_json, key);
+    
+    if(test != NULL && strcmp(value, test->valuestring) == 0){
+      return (*this);
+    }
+  }
+  
+  for (int i = 0; i < cJSON_GetArraySize(_json); i++) {
+    item = cJSON_GetArrayItem(_json, i);
+  
+    if (item == NULL) {
+      continue;
+    }
+    
+    test = cJSON_GetObjectItem(item, key);
+    
+    if(test != NULL && strcmp(value, test->valuestring) == 0){
+      cJSON_AddItemToArray(json, cJSON_Duplicate(item,true));
+    }
+  }
+
+  if(cJSON_GetArraySize(json) == 0){
+    return JSONVar(NULL, NULL);
+  }
+  
+  if(cJSON_GetArraySize(json) == 1){
+    return JSONVar(cJSON_GetArrayItem(json, 0), _json); 
+  }
+
+  return JSONVar(json, _json); 
+}
+
+JSONVar JSONVar::filter(const char* key, const JSONVar& value) const {
+  return this->filter(key, (const char*)value);
+}
+
+JSONVar JSONVar::filter(const String& key, const String& value) const {
+  return this->filter(key.c_str(), value.c_str());
+}
+
+JSONVar JSONVar::filter(const String& key, const JSONVar& value) const {
+  return this->filter(key.c_str(), (const char*)value);
 }
 
 JSONVar undefined;
