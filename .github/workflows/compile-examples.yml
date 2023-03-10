@@ -63,7 +63,7 @@ jobs:
           - fqbn: arduino:samd:nano_33_iot
             platforms: |
               - name: arduino:samd
-          - fqbn: arduino:mbed_portenta:envie_m4
+          - fqbn: arduino:mbed_portenta:envie_m7:target_core=cm4
             platforms: |
               - name: arduino:mbed_portenta
           - fqbn: arduino:mbed_portenta:envie_m7
