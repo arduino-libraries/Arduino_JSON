@@ -204,7 +204,7 @@ JSONVar::operator unsigned long () const
 
 JSONVar::operator double() const
 {
-  return cJSON_IsNumber(_json) ? _json->valuedouble : NAN;
+  return cJSON_IsNumber(_json) ? _json->valuedouble : (double) NAN;
 }
 
 JSONVar::operator const char*() const
