@@ -89,7 +89,9 @@ public:
   JSONVar operator[](const String& key);
   JSONVar operator[](int index);
   JSONVar operator[](const JSONVar& key);  
-
+#if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
+  JSONVar operator[](const char) = delete;
+#endif
   int length() const;
   JSONVar keys() const;
   bool hasOwnProperty(const char* key) const;
