@@ -106,7 +106,8 @@ JSONVar::JSONVar(const JSONVar& v)
 }
 
 #if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
-JSONVar::JSONVar(JSONVar&& v)
+JSONVar::JSONVar(JSONVar&& v) :
+  JSONVar(NULL, NULL)
 {
   cJSON* tmp;
 
